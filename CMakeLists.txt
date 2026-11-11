@@ -8,8 +8,18 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS Quick QuickControls2 Widgets)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
+set(APP_ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/app.ico")
+string(REPLACE "\\" "/" APP_ICON_PATH "${APP_ICON_PATH}")
+configure_file(appicon.rc.in "${CMAKE_CURRENT_BINARY_DIR}/appicon.rc" @ONLY)
+
 qt_add_executable(appvegaconfig
     main.cpp
+    "${CMAKE_CURRENT_BINARY_DIR}/appicon.rc"
+)
+
+qt_add_resources(appvegaconfig "app_icons"
+    PREFIX "/icons"
+    FILES app.ico
 )
 
 qt_add_qml_module(appvegaconfig
